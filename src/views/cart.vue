@@ -5,12 +5,12 @@
       <el-table-column prop="price" label="价格/元" width="100"> </el-table-column>
       <el-table-column label="数量">
         <template slot-scope="scope">
-           <el-input-number v-model="scope.row.count" @change="handleChange" size="mini" :min="1" :max="10" label="商品数量"></el-input-number>
+           <el-input-number v-model="scope.row.count" @change="handleChange(scope.row)" size="mini" :min="1" label="商品数量"></el-input-number>
         </template>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button @click="removeItem(scope.row)" type="danger" size="mini"
+          <el-button @click="removeItem(scope.row.id)" type="danger" size="mini"
             >删除</el-button
           >
         </template>
@@ -32,12 +32,12 @@ export default {
     ...mapState('cart', ['list'])
   },
   methods: {
-    ...mapMutations('cart', ['']),
-    handleChange() {
-
+    ...mapMutations('cart', ['modifyProductCount', 'removeProduct']),
+    handleChange(product) {
+      this.modifyProductCount(product)
     },
-    removeItem() {
-
+    removeItem(id) {
+      this.removeProduct(id)
     }
   }
 }

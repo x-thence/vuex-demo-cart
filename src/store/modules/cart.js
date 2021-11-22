@@ -15,9 +15,16 @@ const mutations = {
       state.list.push(productItem)
     }
   },
+  // 修改商品数量
+  modifyProductCount(state, productItem) {
+    const target = state.list.find(item => item.id === productItem.id)
+    // 找到对应商品更新其count值
+    target && (target.count = productItem.count)
+  },
   // 删除购物车的某个商品
-  removeProduct(state, index) {
-    state.list.splice(index, 1)
+  removeProduct(state, id) {
+    const index = state.list.findIndex(item => item.id === id)
+    index !== -1 && state.list.splice(index, 1)
   }
 
 }
