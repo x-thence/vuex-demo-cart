@@ -1,55 +1,50 @@
 <template>
   <div class="product">
-    <el-button class="btn" type="danger">购物车</el-button>
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="日期" width="180"> </el-table-column>
-      <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-      <el-table-column prop="address" label="地址"> </el-table-column>
+    <el-table :data="products" style="width: 100%">
+      <el-table-column prop="goods" label="商品" width="380"> </el-table-column>
+      <el-table-column prop="price" label="价格/元" width="280"> </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button @click="addToCart(scope.row)" type="primary"
+            >加入购物车</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from 'vuex';
+
 export default {
   name: "Product",
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
-        },
-      ],
+     
     };
   },
+  computed: {
+    ...mapState('products', ['products'])
+  },
+  methods: {
+    ...mapActions('products', ['getProducts']),
+    ...mapMutations('cart', ['addProduct']),
+    addToCart(row) {
+      const item = { ...row, count: 1}
+      this.addProduct(item)
+    }
+  },
+  created() {
+    this.getProducts()
+  }
 };
 </script>
 
 <style scoped>
 .product {
   position: relative;
-  width: 75%;
-  margin: 100px auto;
+  margin-top: 50px;
 }
-.btn {
-  position: absolute;
-  right: 50px;
-  z-index: 9;
-}
+
 </style>

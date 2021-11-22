@@ -1,28 +1,43 @@
 <template>
   <div id="app">
-    <router-view/>
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item
+        ><a href="/">{{ $route.meta.title }}</a></el-breadcrumb-item
+      >
+    </el-breadcrumb>
+    <div class="btn">
+      <el-popover placement="right" width="600" trigger="click">
+        <el-badge slot="reference" :value="6" class="item">
+          <el-button type="danger">我的购物车</el-button>
+        </el-badge>
+        <Cart />
+        <el-button type="danger">去购物车</el-button>
+      </el-popover>
+    </div>
+
+    <router-view />
   </div>
 </template>
 
+<script>
+import Cart from "./views/Cart";
+export default {
+  components: {
+    Cart,
+  },
+};
+</script>
+
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  position: relative;
+  width: 55%;
+  margin: auto;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn {
+  position: absolute;
+  right: 50px;
+  z-index: 9;
 }
 </style>
