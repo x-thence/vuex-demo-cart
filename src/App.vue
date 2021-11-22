@@ -8,7 +8,7 @@
     </el-breadcrumb>
     <div class="btn">
       <el-popover placement="right" width="600" trigger="click">
-        <el-badge slot="reference" :value="6" class="item">
+        <el-badge slot="reference" :value="totalCount" class="item">
           <el-button type="danger">我的购物车</el-button>
         </el-badge>
         <Cart />
@@ -21,11 +21,15 @@
 </template>
 
 <script>
-import Cart from "./views/Cart";
+import Cart from "./views/Cart"
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Cart,
   },
+  computed: {
+    ...mapGetters('cart', ['totalCount'])
+  }
 };
 </script>
 

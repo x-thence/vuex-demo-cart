@@ -33,7 +33,13 @@ const actions = {
 }
 
 const getters = {
-
+  // 计算购物车商品总数量
+  totalCount(state) {
+    const total = state.list.reduce((prev, curr) => {
+      return prev + curr.count
+    }, 0)
+    return total
+  }
 }
 
 export default {
