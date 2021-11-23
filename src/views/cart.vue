@@ -16,11 +16,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <div>
+      <h3>共{{ totalCount }}件商品</h3>
+      <h2>共计{{ totalPrice }}元</h2>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'Cart',
@@ -29,7 +33,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('cart', ['list'])
+    ...mapState('cart', ['list']),
+    ...mapGetters('cart', ['totalCount', 'totalPrice'])
   },
   methods: {
     ...mapMutations('cart', ['modifyProductCount', 'removeProduct']),

@@ -7,12 +7,12 @@
       >
     </el-breadcrumb>
     <div class="btn">
-      <el-popover placement="right" width="600" trigger="click">
+      <el-popover placement="right" width="600" trigger="hover">
         <el-badge slot="reference" :value="totalCount" class="item">
           <el-button type="danger">我的购物车</el-button>
         </el-badge>
         <Cart />
-        <el-button type="danger">去购物车</el-button>
+        <el-button type="danger" @click="toCartPage">去购物车</el-button>
       </el-popover>
     </div>
 
@@ -29,6 +29,11 @@ export default {
   },
   computed: {
     ...mapGetters('cart', ['totalCount'])
+  },
+  methods: {
+    toCartPage() {
+      this.$router.push('/cart')
+    }
   }
 };
 </script>
